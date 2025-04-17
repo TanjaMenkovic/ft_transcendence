@@ -1,18 +1,15 @@
-# backend/Dockerfile
 FROM node:18
 
 WORKDIR /app
 
-# Install ts-node-dev globally (or use npx if preferred)
-RUN npm install -g ts-node-dev
-
 COPY package*.json ./
-RUN npm install --include=dev
+RUN npm install --only=production
 
 COPY . .
 
-# Expose backend port
+# Build TypeScript (if you're not committing compiled files)
+RUN npm run build
+
 EXPOSE 8080
 
-# Run dev script
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]

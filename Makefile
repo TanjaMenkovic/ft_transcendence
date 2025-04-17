@@ -34,20 +34,20 @@ down:
 
 
 backend:
-	mkdir -p $(PROJECT_DIR)/volumes/backend
+	mkdir -p volumes/backend
 
 frontend:
-	mkdir -p $(PROJECT_DIR)/volumes/frontend
+	mkdir -p volumes/frontend
 
 
 ssl:
-	mkdir -p $(PROJECT_DIR)/ssl
-	@if [ ! -f $(PROJECT_DIR)/ssl/private.key ] || [ ! -f $(PROJECT_DIR)/ssl/public_certificate.crt ]; then \
+	mkdir -p ssl
+	@if [ ! -f ssl/private.key ] || [ ! -f ssl/public_certificate.crt ]; then \
 		echo "🔐 Creating SSL certificate and key..."; \
 		openssl req -x509 -nodes -days 365 \
 			-newkey rsa:2048 \
-			-keyout $(PROJECT_DIR)/ssl/private.key \
-			-out $(PROJECT_DIR)/ssl/public_certificate.crt \
+			-keyout ssl/private.key \
+			-out ssl/public_certificate.crt \
 			-subj "/C=FI/ST=Uusimaa/L=Helsinki/O=42/OU=Hive/CN=localhost"; \
 	else \
 		echo "✅ SSL certificate and key already exist. Skipping generation."; \
@@ -58,8 +58,8 @@ clean:
 	docker compose -f ./docker-compose.yml down --rmi all -v
 
 fclean: clean
-	rm -rf $(PROJECT_DIR)/volumes
-	rm -rf $(PROJECT_DIR)/ssl
+	rm -rf volumes
+	rm -rf ssl
 	docker system prune -f --volumes
 
 re: fclean all
