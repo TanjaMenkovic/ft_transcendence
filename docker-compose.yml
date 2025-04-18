@@ -1,28 +1,107 @@
-version: "3.8"
+#V3 - Production 
+networks:
+  internal_network:
+    name: GangNet
+    driver: bridge
 
 services:
   backend:
     build: ./backend
+    image: backend
     container_name: backend
-    volumes:
-      - ./backend:/app
-      - /app/node_modules  # Avoid overwriting node_modules with host
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"  # Internal only
     environment:
-      - NODE_ENV=development
-
+      - NODE_ENV=production
+    networks:
+      - internal_network
+    volumes:
+      - ./backend/database.db:/app/database.db  # Mount database for persistence
+    # No volume for backend code, as it's built into the image
+  
   frontend:
     build: ./frontend
+    image: frontend
     container_name: frontend
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     ports:
-      - "5173:5173"
+      - "5173:5173"  
     env_file:
       - ./frontend/.env.docker
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+    networks:
+      - internal_network
+    depends_on:
+      - backend
+    volumes:
+      - ./ssl:/etc/nginx/ssl:ro
+
+# V2 - Development configuration
+
+# networks:
+#     internal_network:
+#         name: GangNet
+#         driver: bridge
+
+# services:
+#   backend:
+#     build: ./backend
+#     container_name: backend
+#     ports:
+#       - "8080:8080"   # Let's not expose this.
+#     environment:
+#       - NODE_ENV=development
+#     networks:
+#       - internal_network      
+#     volumes:
+#       - ./backend:/app
+#       - /app/node_modules  # Avoid overwriting node_modules with host
+
+#   frontend:
+#     build: ./frontend
+#     container_name: frontend
+#     ports:
+#       - "5173:5173"
+#     env_file:
+#       - ./frontend/.env.docker
+#     environment:
+#       - NODE_ENV=development
+#     networks:
+#       - internal_network
+#     depends_on:
+#       - backend
+#     volumes:
+#       - ./frontend:/app
+#       - /app/node_modules
+
+
+# V1 - Development configuration
+
+# version: "3.8"
+
+# services:
+#   backend:
+#     build: ./backend
+#     container_name: backend
+#     volumes:
+#       - ./backend:/app
+#       - /app/node_modules  # Avoid overwriting node_modules with host
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - NODE_ENV=development
+
+#   frontend:
+#     build: ./frontend
+#     container_name: frontend
+#     depends_on:
+#       - backend
+#     volumes:
+#       - ./frontend:/app
+#       - /app/node_modules
+#     ports:
+#       - "5173:5173"
+#     env_file:
+#       - ./frontend/.env.docker
+#     environment:
+#       - NODE_ENV=development
