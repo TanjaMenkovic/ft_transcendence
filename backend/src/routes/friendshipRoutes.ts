@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { database } from "../database";
+import { database } from "../database.js";
 
 export async function friendshipRoutes(app: FastifyInstance) {
   // Send a friend request

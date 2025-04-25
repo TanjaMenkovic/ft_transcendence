@@ -9,14 +9,15 @@ services:
     build: ./backend
     image: backend
     container_name: backend
-    expose:
-      - "8080"  # Internal only
+    ports:
+      - "8080:8080"  # Internal only
     environment:
       - NODE_ENV=production
     networks:
       - internal_network
     volumes:
       - ./backend/database.db:/app/database.db  # Mount database for persistence
+    restart: always 
     # No volume for backend code, as it's built into the image
   
   frontend:
@@ -24,7 +25,7 @@ services:
     image: frontend
     container_name: frontend
     ports:
-      - "5173:5173"  
+      - "5173:443"
     env_file:
       - ./frontend/.env.docker
     environment:
@@ -33,8 +34,7 @@ services:
       - internal_network
     depends_on:
       - backend
-    volumes:
-      - ./ssl:/etc/nginx/ssl:ro
+    restart: always
 
 # V2 - Development configuration
 

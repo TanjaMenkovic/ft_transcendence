@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { database } from "../database";
+import { database } from "../database.js";
 
 export const gameRoutes = async (app: FastifyInstance) => {
   // Duel Game Route (unchanged)

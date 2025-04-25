@@ -1,12 +1,12 @@
 import Fastify, { FastifyRequest, FastifyReply } from "fastify";
 import jwt from "@fastify/jwt";
-import { Env } from "./env";
-import { initializeDatabase } from "./database";
-import { authRoutes } from "./routes/authRoutes";
-import { userRoutes } from "./routes/userRoutes";
-import { friendshipRoutes } from "./routes/friendshipRoutes";
-import { startUserStatusUpdater } from "./routes/userStatusUpdater";
-import { gameRoutes } from "./routes/gameRoutes";
+import { Env } from "./env.js";
+import { initializeDatabase } from "./database.js";
+import { authRoutes } from "./routes/authRoutes.js";
+import { userRoutes } from "./routes/userRoutes.js";
+import { friendshipRoutes } from "./routes/friendshipRoutes.js";
+import { startUserStatusUpdater } from "./routes/userStatusUpdater.js";
+import { gameRoutes } from "./routes/gameRoutes.js";
 
 declare module "@fastify/jwt" {
   interface FastifyJWT {

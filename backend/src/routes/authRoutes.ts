@@ -1,13 +1,13 @@
 import { FastifyInstance } from "fastify";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { database } from "../database";
+import { database } from "../database.js";
 import {
   send2FACode,
   sendPasswordResetEmail,
   sendRegisterSuccessEmail,
-} from "../emailService";
-import { Env } from "../env";
+} from "../emailService.js";
+import { Env } from "../env.js";
 
 interface RegisterInput {
   username: string;

@@ -1,4 +1,4 @@
-import { database } from "../database"; // Assuming your database connection is in this file
+import { database } from "../database.js"; // Assuming your database connection is in this file
 
 // Function to update user statuses
 export const updateUserStatuses = async () => {

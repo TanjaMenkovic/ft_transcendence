@@ -132,7 +132,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,             // Enables importing JSON
     "isolatedModules": true,               // Required if using Babel or SWC
-    "noEmit": true,                        // Useful for frontend React projects that use separate build tools
+    "noEmit": false,                        // Useful for frontend React projects that use separate build tools
     "types": ["node"]                      // Node.js type definitions
   },
   "include": ["src"],                      // Adjust based on your source directory

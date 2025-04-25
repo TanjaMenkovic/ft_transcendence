@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { database } from "../database";
+import { database } from "../database.js";
 import { Env } from "../env";
 //import { useResolvedPath } from 'react-router-dom'
 import { fdatasync } from "fs";
@@ -9,7 +9,7 @@ import fastifyMultipart from "@fastify/multipart";
 import fs from "fs";
 import { dirname } from "path";
 import { pipeline } from "stream/promises";
-import { sendGameAchievementEmail } from "../emailService";
+import { sendGameAchievementEmail } from "../emailService.js";
 
 // change it completely when you start working on user stuff!!!
 interface UpdateField {
